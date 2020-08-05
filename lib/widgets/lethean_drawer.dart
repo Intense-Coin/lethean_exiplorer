@@ -3,6 +3,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/lethean_colors.dart';
 import '../screens/providers_list_screen.dart';
@@ -86,11 +87,32 @@ class LetheanDrawer extends StatelessWidget {
                     alignment: Alignment.topLeft,
                     width: 80.0,
                     child: Image(
-                      image: AssetImage('assets/icon/golden-helmet-adaptive.png'),
+                      image:
+                          AssetImage('assets/icon/golden-helmet-adaptive.png'),
                       fit: BoxFit.fill,
                       alignment: Alignment.topLeft,
                     ),
                   ),
+                  children: <Widget>[
+                    FlatButton(
+                      textTheme: ButtonTextTheme.accent,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 0.0,
+                        vertical: 0.0,
+                      ),
+                      onPressed: () async {
+                        const url =
+                            'https://github.com/LetheanMovement/lethean_exiplorer';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
+                      child: Text('https://github.com/LetheanMovement/lethean_exiplorer'),
+                    ),
+                  ],
                 );
               },
             ),

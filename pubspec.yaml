@@ -1,6 +1,6 @@
 name: lethean_exiplorer
 description: Lethean Exiplorer is a tool to view information about the VPN exit nodes of Lethean VPN. See https://lethean.io
-homepage: https://github.com/ronnylov/lethean_exiplorer
+homepage: https://github.com/LetheanMovement/lethean_exiplorer
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -42,6 +42,7 @@ dependencies:
   ext_storage: ^1.0.3
   google_fonts: ^1.1.0
   package_info: '>=0.4.1 <2.0.0'
+  flutter_svg: ^0.18.0
 
 
 dev_dependencies:
