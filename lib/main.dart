@@ -18,9 +18,20 @@ import './widgets/lethean_colors.dart';
 
 void main() {
   LicenseRegistry.addLicense(() async* {
-    final license = await rootBundle.loadString('assets/google_fonts/Nunito_Sans/OFL.txt');
+    final license =
+        await rootBundle.loadString('assets/google_fonts/Nunito_Sans/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+    systemNavigationBarColor: Colors.black,
+    statusBarColor: Color.alphaBlend(
+      LetheanColors.guidebluegreen.withAlpha(30),
+      LetheanColors.guidedarkgray,
+    ),
+    statusBarBrightness: Brightness.dark,
+    statusBarIconBrightness: Brightness.light,
+    systemNavigationBarIconBrightness: Brightness.light,
+  ));
   runApp(MyApp());
 }
 
@@ -33,6 +44,16 @@ class MyApp extends StatelessWidget {
         title: 'Lethean Exiplorer',
         theme: ThemeData(
           appBarTheme: AppBarTheme(
+            shadowColor: Color.alphaBlend(
+              LetheanColors.guidebluegreen.withAlpha(30),
+              LetheanColors.guidedarkgray,
+            ),
+            actionsIconTheme: IconThemeData(color: Colors.white),
+            iconTheme: IconThemeData(
+              color: Colors.white,
+              opacity: 1.0,
+            ),
+            brightness: Brightness.dark,
             color: Color.alphaBlend(
               LetheanColors.guidebluegreen.withAlpha(30),
               LetheanColors.guidedarkgray,

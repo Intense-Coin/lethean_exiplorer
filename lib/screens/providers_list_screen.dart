@@ -43,101 +43,106 @@ class _ProviderListScreenState extends State<ProviderListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Lethean Exiplorer'),
-      ),
-      drawer: LetheanDrawer(),
-      body: Consumer<ExitNodeProviders>(
-        builder: (ctx, exitNode, _) => FutureBuilder<void>(
-          future: _refresh,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text('An error has occured: ${snapshot.error}'),
-              );
-            } else {
-              _currentNodeList = exitNode.providers;
-              _markers = []; // Make sure the list is empty before building it
-              exitNode.countries.forEach((country) {
-                _markers.add(
-                  Marker(
-                    point: LatLng(country.latitude, country.longitude),
-                    height: 28.00,
-                    width: 28.00,
-                    builder: (context) => Container(
-                      child: Icon(
-                        Icons.location_on,
-                        color: Colors.lightBlue,
-                        size: 28,
-                      ),
-                    ),
-                    anchorPos: AnchorPos.align(AnchorAlign.center),
-                  ),
+    return SafeArea(
+      child: Scaffold(
+        // primary: false,
+        appBar: AppBar(
+          // backgroundColor: Colors.red,
+          // brightness: Brightness.light,
+          title: const Text('Lethean Exiplorer'),
+        ),
+        drawer: LetheanDrawer(),
+        body: Consumer<ExitNodeProviders>(
+          builder: (ctx, exitNode, _) => FutureBuilder<void>(
+            future: _refresh,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
                 );
-              });
-              return _currentNodeList.isEmpty
-                  ? Center(
-                      child: const Text('No exit node available.'),
-                    )
-                  : Column(
-                      children: <Widget>[
-                        SizedBox(height: 6.0),
-                        WorldMap(
-                          mapMarkers: _markers,
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('An error has occured: ${snapshot.error}'),
+                );
+              } else {
+                _currentNodeList = exitNode.providers;
+                _markers = []; // Make sure the list is empty before building it
+                exitNode.countries.forEach((country) {
+                  _markers.add(
+                    Marker(
+                      point: LatLng(country.latitude, country.longitude),
+                      height: 28.00,
+                      width: 28.00,
+                      builder: (context) => Container(
+                        child: Icon(
+                          Icons.location_on,
+                          color: Colors.lightBlue,
+                          size: 28,
                         ),
-                        Expanded(
-                          // Was necessary to wrap this in Expanded
-                          // to avoid error in Column
-                          child: Scrollbar(
-                            child: RefreshIndicator(
-                              onRefresh: () {
-                                _refresh = Provider.of<ExitNodeProviders>(
-                                  context,
-                                  listen: false,
-                                ).fetchAndSetProviders();
-                                return _refresh;
-                              },
-                              child: ListView.builder(
-                                physics: const AlwaysScrollableScrollPhysics(),
-                                itemCount: _currentNodeList.length,
-                                itemBuilder: (context, index) =>
-                                    ExitNodeProviderTile(
-                                        currentNode: _currentNodeList[index]),
+                      ),
+                      anchorPos: AnchorPos.align(AnchorAlign.center),
+                    ),
+                  );
+                });
+                return _currentNodeList.isEmpty
+                    ? Center(
+                        child: const Text('No exit node available.'),
+                      )
+                    : Column(
+                        children: <Widget>[
+                          SizedBox(height: 6.0),
+                          WorldMap(
+                            mapMarkers: _markers,
+                          ),
+                          Expanded(
+                            // Was necessary to wrap this in Expanded
+                            // to avoid error in Column
+                            child: Scrollbar(
+                              child: RefreshIndicator(
+                                onRefresh: () {
+                                  _refresh = Provider.of<ExitNodeProviders>(
+                                    context,
+                                    listen: false,
+                                  ).fetchAndSetProviders();
+                                  return _refresh;
+                                },
+                                child: ListView.builder(
+                                  physics:
+                                      const AlwaysScrollableScrollPhysics(),
+                                  itemCount: _currentNodeList.length,
+                                  itemBuilder: (context, index) =>
+                                      ExitNodeProviderTile(
+                                          currentNode: _currentNodeList[index]),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    );
-            }
-          },
+                        ],
+                      );
+              }
+            },
+          ),
         ),
-      ),
-      // floatingActionButton: FloatingActionButton(
-      //   child: Icon(Icons.refresh),
-      //   onPressed: () async {
-      //     setState(() {
-      //       _refresh = Provider.of<ExitNodeProviders>(
-      //         context,
-      //         listen: false,
-      //       ).fetchAndSetProviders();
-      //     });
+        // floatingActionButton: FloatingActionButton(
+        //   child: Icon(Icons.refresh),
+        //   onPressed: () async {
+        //     setState(() {
+        //       _refresh = Provider.of<ExitNodeProviders>(
+        //         context,
+        //         listen: false,
+        //       ).fetchAndSetProviders();
+        //     });
 
-      // Some code for testing detecting internet location of the device
-      // final myIp = await ApiHelpers.fetchMyIp();
-      // final myCountryMap = await ApiHelpers.fetchCountryFromIp(myIp);
-      // final myCountry = Country.fromJson(myCountryMap);
-      // print('Country: ' + myCountry.name + ' ' + myCountry.code);
-      // print('Latitude: ' + myCountry.latitude.toString());
-      // print('Longitude: ' + myCountry.longitude.toString());
-      //   },
-      // ),
+        // Some code for testing detecting internet location of the device
+        // final myIp = await ApiHelpers.fetchMyIp();
+        // final myCountryMap = await ApiHelpers.fetchCountryFromIp(myIp);
+        // final myCountry = Country.fromJson(myCountryMap);
+        // print('Country: ' + myCountry.name + ' ' + myCountry.code);
+        // print('Latitude: ' + myCountry.latitude.toString());
+        // print('Longitude: ' + myCountry.longitude.toString());
+        //   },
+        // ),
+      ),
     );
   }
 }
-
