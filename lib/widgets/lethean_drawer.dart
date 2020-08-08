@@ -110,7 +110,8 @@ class LetheanDrawer extends StatelessWidget {
                           throw 'Could not launch $url';
                         }
                       },
-                      child: Text('https://github.com/LetheanMovement/lethean_exiplorer'),
+                      child: Text(
+                          'https://github.com/LetheanMovement/lethean_exiplorer'),
                     ),
                   ],
                 );
@@ -135,7 +136,6 @@ class LetheanDrawer extends StatelessWidget {
           ],
         ),
       ),
-      // ),
     );
   }
 }
