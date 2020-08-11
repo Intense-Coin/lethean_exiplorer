@@ -141,7 +141,7 @@ class VpnInstructionScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 14),
                             Text(
-                              'Lethean command line wallet or Discord tipbot' +
+                              'Lethean command line wallet' +
                                   ' command format :\n' +
                                   'transfer <Address> <Amount> <Payment Id>',
                               style: Theme.of(context).textTheme.bodyText1,
@@ -149,6 +149,18 @@ class VpnInstructionScreen extends StatelessWidget {
                             const SizedBox(height: 14),
                             SelectableText('transfer ${_service.providerWallet} ' +
                                 '${_service.cost * _service.firstPrePaidMinutes} ' +
+                                '${_service.paymentId}'),
+                            const SizedBox(height: 14),
+                            Text(
+                              'Lethean discord TipBot wallet' +
+                                  ' command format :\n' +
+                                  '!withdraw <Amount> <Address> <Payment Id>',
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            const SizedBox(height: 14),
+                            SelectableText('!withdraw ' +
+                                '${_service.cost * _service.firstPrePaidMinutes} ' +
+                                '${_service.providerWallet} ' +
                                 '${_service.paymentId}'),
                             const SizedBox(height: 14),
                             const Divider(thickness: 2.0),
@@ -211,8 +223,27 @@ class VpnInstructionScreen extends StatelessWidget {
                               style: Theme.of(context).textTheme.bodyText1,
                             ),
                             const SizedBox(height: 14),
+                            Text(
+                              'Lethean command line wallet' +
+                                  ' command format :\n' +
+                                  'transfer <Address> <Amount> <Payment Id>',
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            const SizedBox(height: 14),
                             SelectableText('transfer ${_service.providerWallet} ' +
                                 '${_service.cost * _service.subsequentPrePaidMinutes} ' +
+                                '${_service.paymentId}'),
+                            const SizedBox(height: 14),
+                            Text(
+                              'Lethean discord TipBot wallet' +
+                                  ' command format :\n' +
+                                  '!withdraw <Amount> <Address> <Payment Id>',
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            const SizedBox(height: 14),
+                            SelectableText('!withdraw ' +
+                                '${_service.cost * _service.firstPrePaidMinutes} ' +
+                                '${_service.providerWallet} ' +
                                 '${_service.paymentId}'),
                             const SizedBox(height: 14),
                           ],
