@@ -28,80 +28,82 @@ class _ServicesListScreenState extends State<ServicesListScreen> {
     final ExitNodeProvider _exitNode =
         ModalRoute.of(context).settings.arguments;
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text('${_exitNode.name} services'),
-      ),
-      drawer: LetheanDrawer(),
-      body: Column(
-        children: <Widget>[
-          SizedBox(height: 6.0),
-          Card(
-            key: Key(_exitNode.id),
-            child: ListTile(
-              // Country is not required so better check if set
-              leading: _exitNode.country == null
-                  ? const SizedBox(
-                      width: 60,
-                      height: 40,
-                      child: const Icon(
-                        Icons.help_outline,
-                        size: 40,
-                      ),
-                    )
-                  : Flag(
-                      _exitNode.country.code,
-                      width: 60.0,
-                      height: 40.0,
-                      fit: BoxFit.cover,
-                    ),
-              title: Text(
-                _exitNode.name,
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              // Country is not required so better check if set
-              subtitle: _exitNode.country == null
-                  ? Text(
-                      'Unknown Country',
-                      style: Theme.of(context).textTheme.subtitle1,
-                    )
-                  : Text(
-                      '${_exitNode.country.name} ' +
-                          '${_exitNode.country.code}',
-                      style: Theme.of(context).textTheme.subtitle1,
-                    ),
-              // trailing: const Icon(Icons.arrow_forward_ios),
-              // onTap: () {
-              //   Navigator.pushNamed(
-              //     context,
-              //     ServicesListScreen.routeName,
-              //     arguments: _currentNode,
-              //   );
-              // },
-            ),
-            elevation: 4,
-            margin: const EdgeInsets.all(6),
-            // shape: RoundedRectangleBorder(
-            //   borderRadius: BorderRadius.circular(8),
-            // ),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
           ),
-          Expanded(
-            child: Scrollbar(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.all(6),
-                  child: ExpansionPanelList.radio(
-                    children: _buildExpansionPanelRadioList(_exitNode),
+          title: Text('${_exitNode.name} services'),
+        ),
+        drawer: LetheanDrawer(),
+        body: Column(
+          children: <Widget>[
+            SizedBox(height: 6.0),
+            Card(
+              key: Key(_exitNode.id),
+              child: ListTile(
+                // Country is not required so better check if set
+                leading: _exitNode.country == null
+                    ? const SizedBox(
+                        width: 60,
+                        height: 40,
+                        child: const Icon(
+                          Icons.help_outline,
+                          size: 40,
+                        ),
+                      )
+                    : Flag(
+                        _exitNode.country.code,
+                        width: 60.0,
+                        height: 40.0,
+                        fit: BoxFit.cover,
+                      ),
+                title: Text(
+                  _exitNode.name,
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                // Country is not required so better check if set
+                subtitle: _exitNode.country == null
+                    ? Text(
+                        'Unknown Country',
+                        style: Theme.of(context).textTheme.subtitle1,
+                      )
+                    : Text(
+                        '${_exitNode.country.name} ' +
+                            '${_exitNode.country.code}',
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                // trailing: const Icon(Icons.arrow_forward_ios),
+                // onTap: () {
+                //   Navigator.pushNamed(
+                //     context,
+                //     ServicesListScreen.routeName,
+                //     arguments: _currentNode,
+                //   );
+                // },
+              ),
+              elevation: 4,
+              margin: const EdgeInsets.all(6),
+              // shape: RoundedRectangleBorder(
+              //   borderRadius: BorderRadius.circular(8),
+              // ),
+            ),
+            Expanded(
+              child: Scrollbar(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.all(6),
+                    child: ExpansionPanelList.radio(
+                      children: _buildExpansionPanelRadioList(_exitNode),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
